@@ -1,0 +1,7 @@
+name = "nimbusbot"
+account_id = "efeade64cb74f811a452ab55d32844e2"
+compatibility_date = "2024-04-15"
+
+[site]
+bucket = "./src"
+main = "nimbusbot/index.js"

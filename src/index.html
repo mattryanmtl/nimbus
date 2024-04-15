@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Chatbot</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        #chatbox { width: 300px; height: 300px; border: 1px solid #ccc; padding: 10px; overflow-y: scroll; }
+        #input { width: 100%; padding: 10px; }
+    </style>
+</head>
+<body>
+    <div id="chatbox"></div>
+    <input type="text" id="input" placeholder="Type your message...">
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('input');
+            const chatbox = document.getElementById('chatbox');
+
+            // Assuming your Worker endpoint handles POST at the same URL
+            fetch(window.location.href, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({message: input.value})
+            })
+            .then(response => response.json())
+            .then(data => {
+                chatbox.innerHTML += `<div>You: ${input.value}</div>`;
+                chatbox.innerHTML += `<div>Bot: ${data.reply}</div>`;
+                input.value = ''; // clear input box
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
+
